@@ -1,8 +1,12 @@
 // Load the csv-parser
 var csv = require('./lib/csv.js')
 
+//Require file system
+var fs = require('fs');
+
 var smallData 	= './sample_data/sample.csv'
 var BigData 	= './sample_data/Fielding.csv'
+var output      = "./sample_data/output.txt"
 
 
 //Synchronous Parsing
@@ -10,8 +14,8 @@ var BigData 	= './sample_data/Fielding.csv'
 // console.log(syncR)
 
 //ASynchronous Parsing
-var aSyncR = csv.parseAsync(smallData)
-// console.log(aSyncR)
+//var aSyncR = csv.parseAsync(smallData, csv.printsAsync)
+//console.log(aSyncR)
 
 // csv.parseAsync(url, function(error, data){
 // 	if (error)
@@ -19,9 +23,10 @@ var aSyncR = csv.parseAsync(smallData)
 // 	console.log(data)	
 // })
 
-// fs.createReadStream('path/to/data.csv')
-//  .pipe(csv.parsePipe())
-//  .pipe(fs.createWriteStream('path/to/data.txt'))
+ //fs.createReadStream('path/to/data.csv')
+ fs.createReadStream(smallData)
+ .pipe(csv.parsePipe())
+ .pipe(fs.createWriteStream(output))
 
 // var p = csv.parseObject(url)
 // p.on('data', function(data){
